@@ -1,0 +1,42 @@
+import { test, request, expect } from '@playwright/test';
+import { CrearGuiaPage } from '../pages/CrearGuiaPage';
+import guiaBase from '../utils/guiaBase.json';
+import { URL_BASE } from '../utils/constantes';
+import { ConsultarGuiaPage } from '../pages/ConsultarGuiaPage';
+import { generarPalabraValida } from '../utils/valorAleatorio';
+
+
+
+test.describe('API - Crear guía de Recaudo', () => {
+  let crearGuia: CrearGuiaPage;
+  let consultarGuia: ConsultarGuiaPage;
+
+
+  test.beforeAll(async () => {
+    const requestContext = await request.newContext({
+      baseURL: URL_BASE.COORDINADORA_PATH,
+    });
+
+    crearGuia = new CrearGuiaPage(requestContext);
+    consultarGuia = new ConsultarGuiaPage(requestContext);
+  });
+
+      test('Crear guía con referencia super el minimo de caracteres y validar vía GET', async () => {
+  
+      const guiaModificada = { ...guiaBase };
+      guiaModificada.referenciaRecaudo = generarPalabraValida().toString(); 
+      const crearResponse = await crearGuia.crearGuia(guiaModificada);
+      
+      const guiaId = crearResponse.data.codigo_remision;
+      console.log('Id guia',guiaId) 
+  
+      const guiaObtenida = await consultarGuia.obtenerGuiaPorId(guiaId);
+      console.log('Json Guia',guiaObtenida.data)
+      console.log('Guia Referencua recaudo',guiaObtenida.data.referenciaRecaudo)
+
+  
+      expect(guiaObtenida.data.referenciaRecaudo).toBe((guiaModificada.referenciaRecaudo));
+
+    });
+
+});

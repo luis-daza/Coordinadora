@@ -9,7 +9,7 @@ export class ConsultarGuiaPage extends CrearGuiaPage{
     super(request)
   }
 
-    async obtenerGuiaPorId(id: string): Promise<any> {
+    async obtenerGuiaPorId(id: string) {
         const response = await this.request.get(`${URL_BASE.GUIDE_GET}${id}`);
         //console.log('aqui',response)
         if (!response.ok()) {

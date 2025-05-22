@@ -1,14 +1,18 @@
 {
-  "name": "coordinadora",
+  "name": "cooordinadora",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.18"
+    "@types/node": "^22.15.18",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

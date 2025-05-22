@@ -9,7 +9,7 @@ export class CrearGuiaPage {
     this.request = request;
   }
 
-  async crearGuia(body: any): Promise<any> {
+  async crearGuia(body: any) {
     const response: APIResponse = await this.request.post(URL_BASE.GUIDE_POST, {
       data: body
     });
